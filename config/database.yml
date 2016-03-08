@@ -16,6 +16,7 @@ default: &default
   username: kenshu3
   password: kenshu3desuyo2016
   socket: /tmp/mysql.sock
+  host: localhost
 
 development:
   <<: *default
