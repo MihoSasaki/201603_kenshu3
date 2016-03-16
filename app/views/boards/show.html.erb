@@ -1,0 +1,29 @@
+<%= link_to "スレッド一覧に戻る", boards_url %>
+<hr>
+<h1><%= @board.title %></h1>
+<hr>
+<% if current_user.id == @board.user_id %>
+<%= link_to "タイトルを編集する", edit_board_path %><br>
+<%= link_to "このスレッドを削除する", @board, method: :delete, data: { confirm: "本当に削除しますか?"} %>
+<% end %>
+  <% if @board.comments.empty? %>
+  <hr><br>
+    コメントはまだありません
+  <% else %>
+    <% @board.comments.each_with_index do |comment, index|%>
+    <div>
+      <p><%= 1 + index %></p>
+      <p><%= comment.content %></p>
+    </div>
+    <p>
+      <%= comment.created_at.strftime("%y/%m/%d %H:%M") %>,<%= comment.user_id %>
+    </p>
+    <% if current_user.id == comment.user_id %>
+       <%= link_to '編集する', edit_board_comment_path(@board, comment) %>
+       <%= link_to '削除する', board_comment_path(@board, comment), method: :delete, data: { confirm: '本当に削除しますか?' } %>
+    <% end %>
+  <% end %>
+<% end %>
+<hr>
+新しいコメントを追加する<br>
+<%= render 'shared/comment_form' %>

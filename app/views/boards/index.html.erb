@@ -1,0 +1,13 @@
+<% if logged_in? %>
+  <p>Find me in app/views/boards/index.html.erb</p>
+  <%= link_to "スレッド新規作成", new_board_path %>
+<hr>
+  <% @boards.each do |board| %>
+    <%= link_to board.title, board_path(board) %> 
+    <%= time_ago_in_words(board.created_at) %>-ago,
+    <%= board.user_id%>
+  <br>
+  <% end %>
+<% else %>
+  <li><%= link_to "Log in", login_path %></li>
+<% end %>
